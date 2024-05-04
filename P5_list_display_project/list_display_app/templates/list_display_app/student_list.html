@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student List</title>
+</head>
+<body>
+    <h1>List of Students</h1>
+    <p>
+        <ol>
+            {% for stud in student %}
+            <li>{{ stud }}</li>
+            {% endfor %}
+        </ol>
+    </p>
+</body>
+</html>
