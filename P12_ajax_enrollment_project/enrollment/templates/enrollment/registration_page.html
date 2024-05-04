@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Enrollment</title>
+</head>
+<body>
+    <h2>Student Enrollment</h2>
+    <form action="" id="studentForm" method="post">
+        {% csrf_token %}
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name"><br><br>
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email"><br><br>
+        <label for="course">Course:</label>
+        <select name="course" id="course">
+            {% for course in courses %}
+                <option value="{{ course.id }}">{{ course.name }}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+        <button type="submit">Register</button>
+    </form>
+    <div id="message"></div>
+
+    <script>
+        $(document).ready(function(){
+            $('#studentForm').submit(function(event){
+                event.preventDefault();
+                var form = $(this);
+                $ajax({
+                    url: form.attr('action'),
+                    type: form.attr('method'),
+                    data: form.serialize(),
+                    success: function(response){
+                        if(response.success){
+                            $('#message').html('Student registered successfully with ID: '+response.student_id);
+                            $('#studentForm')[0].reset();
+                        }
+                        else{
+                            $('#message').html('Error: '+response.console.errors);
+                        }
+                    },
+                    error: function(xhr, status, error){
+                        $('#message').html('Error: '+xhr.responseText);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
