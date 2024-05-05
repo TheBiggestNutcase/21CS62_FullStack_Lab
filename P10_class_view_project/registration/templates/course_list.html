@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course List</title>
+</head>
+<body>
+    <h1>Course List</h1>
+    {% if courses %}
+        <ul>
+            {% for course in courses %}
+                <li>
+                    <a href="{% url 'student_list' course.id %}">{{ course.name }}</a>
+                    <p>{{ course.description }}</p>
+                    <a href="{% url 'assign_students' course.id %}">Assign Students</a>
+                 </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No courses available</p>
+    {% endif %}
+</body>
+</html>
